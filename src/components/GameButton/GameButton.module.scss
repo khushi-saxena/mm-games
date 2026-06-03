@@ -1,0 +1,59 @@
+.gameButton {
+  width: 150px;
+  height: 150px;
+
+  background-color: var(--buttonColor);
+
+  border: 10px solid black;
+  border-radius: 20px;
+  margin: 5px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--lighter);
+  }
+
+  &:active {
+    background-color: var(--darker);
+  }
+}
+
+.highlighted {
+  background-color: var(--lighter) !important;
+  box-shadow: 0 0 24px var(--lighter), inset 0 0 20px rgba(255, 255, 255, 0.4);
+  transform: scale(1.04);
+}
+
+.disabled {
+  cursor: default;
+  opacity: 0.85;
+
+  &:hover {
+    background-color: var(--buttonColor);
+  }
+}
+
+.red {
+  --buttonColor: red;
+  --lighter: rgb(255, 80, 80);
+  --darker: rgb(200, 0, 0);
+}
+
+.green {
+  --buttonColor: green;
+  --lighter: rgb(80, 255, 80);
+  --darker: rgb(0, 200, 0);
+}
+
+.blue {
+  --buttonColor: blue;
+  --lighter: rgb(80, 80, 255);
+  --darker: rgb(0, 0, 200);
+}
+
+.yellow {
+  --buttonColor: yellow;
+  --lighter: rgb(255, 255, 160);
+  --darker: rgb(200, 200, 0);
+}

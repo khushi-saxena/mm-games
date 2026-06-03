@@ -1,0 +1,632 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&display=swap");
+
+.root {
+  --overlayShadow: inset 0 0 220px 60px rgba(0, 0, 0, 0.7);
+  --fogA: rgba(150, 120, 190, 0.1);
+  --fogB: rgba(90, 140, 210, 0.08);
+  --btnTop: #e8c45c;
+  --btnBottom: #b8902f;
+  --btnText: #1a1206;
+
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 24px 18px 40px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s, color 0.4s;
+  width: 100%;
+}
+
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: var(--overlayShadow);
+  opacity: 0.9;
+}
+
+.fog {
+  position: absolute;
+  inset: -40% -20%;
+  background:
+    radial-gradient(closest-side, var(--fogA), transparent),
+    radial-gradient(closest-side, var(--fogB), transparent);
+  background-size: 60% 60%, 50% 50%;
+  background-position: 20% 30%, 80% 70%;
+  animation: drift 26s ease-in-out infinite alternate;
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+@keyframes drift {
+  to {
+    background-position: 40% 50%, 60% 40%;
+  }
+}
+
+.dust {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--dust);
+  box-shadow: 0 0 8px var(--dust);
+  animation: rise linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-120px);
+    opacity: 0;
+  }
+}
+
+.wrap {
+  position: relative;
+  max-width: 980px;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+.title {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  margin: 0;
+  font-size: clamp(30px, 6vw, 56px);
+  color: var(--titleColor);
+  text-shadow: var(--titleShadow);
+  animation: flick 5s infinite;
+}
+
+@keyframes flick {
+  0%,
+  97%,
+  100% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 0.74;
+  }
+  99% {
+    opacity: 0.92;
+  }
+}
+
+.sub {
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+  margin: 6px 0 20px;
+  font-size: clamp(14px, 2.4vw, 19px);
+  letter-spacing: 0.04em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 22px;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--cardBorder);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+
+.status {
+  min-height: 28px;
+  text-align: center;
+  font-size: 19px;
+  letter-spacing: 0.03em;
+  margin-bottom: 14px;
+  font-style: italic;
+}
+
+.boardWrap {
+  position: relative;
+  width: min(360px, 82vw);
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+
+.boardWrap.shake {
+  animation: sh 0.5s;
+}
+
+@keyframes sh {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-8px, 4px);
+  }
+  40% {
+    transform: translate(8px, -4px);
+  }
+  60% {
+    transform: translate(-6px, 2px);
+  }
+  80% {
+    transform: translate(6px, -2px);
+  }
+}
+
+.pads {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+}
+
+.pad {
+  border: none;
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.15s, filter 0.15s;
+  outline: none;
+  filter: brightness(0.82) saturate(0.85);
+}
+
+.pad:disabled {
+  cursor: default;
+}
+
+.pad:hover:not(:disabled) {
+  filter: brightness(1) saturate(1);
+}
+
+.pad.on {
+  filter: brightness(1.6) saturate(1.4);
+  transform: scale(0.97);
+}
+
+.hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 42%;
+  height: 42%;
+  border-radius: 50%;
+  background: var(--hub);
+  border: 2px solid var(--gold);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 22px rgba(0, 0, 0, 0.4);
+  transition: transform 0.25s;
+  pointer-events: none;
+}
+
+.hub.pulse {
+  transform: translate(-50%, -50%) scale(1.12);
+}
+
+.hubLabel {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hubScore {
+  font-family: "Cinzel Decorative", serif;
+  font-size: clamp(28px, 8vw, 40px);
+  color: var(--gold);
+  line-height: 1;
+  text-shadow: 0 0 14px rgba(232, 196, 92, 0.5);
+}
+
+.emberWrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+}
+
+.ember {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px var(--gold);
+  animation: ember 0.9s ease-out forwards;
+}
+
+@keyframes ember {
+  from {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--tx), var(--ty)) scale(0.2);
+    opacity: 0;
+  }
+}
+
+.btn {
+  font-family: "Cinzel Decorative", serif;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(180deg, var(--btnTop), var(--btnBottom));
+  color: var(--btnText);
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  box-shadow: 0 6px 18px rgba(232, 196, 92, 0.3);
+  transition: transform 0.1s, box-shadow 0.15s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(232, 196, 92, 0.45);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.phaseHint {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.lbHead {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: "Cinzel Decorative", serif;
+  color: var(--gold);
+  font-size: 20px;
+  margin: 0 0 4px;
+}
+
+.lbNote {
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+  margin: 0 0 14px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  background: var(--rowBg);
+  border: 1px solid var(--rowBorder);
+}
+
+.row.me {
+  background: rgba(232, 196, 92, 0.14);
+  border-color: rgba(232, 196, 92, 0.45);
+}
+
+.rank {
+  width: 26px;
+  text-align: center;
+  font-family: "Cinzel Decorative", serif;
+  color: var(--muted);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pname {
+  flex: 1;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pscore {
+  font-family: "Cinzel Decorative", serif;
+  color: var(--gold);
+  font-size: 18px;
+}
+
+.pgames {
+  color: var(--muted);
+  font-size: 12px;
+  width: 58px;
+  text-align: right;
+}
+
+.empty {
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  padding: 24px 0;
+}
+
+.topbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.iconbtn {
+  background: var(--rowBg);
+  border: 1px solid var(--cardBorder);
+  color: var(--ink);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.iconbtn:hover {
+  background: rgba(232, 196, 92, 0.18);
+}
+
+.pb {
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 12px;
+  font-size: 15px;
+}
+
+.pb b {
+  color: var(--gold);
+  font-style: normal;
+}
+
+.relics {
+  margin-top: 22px;
+}
+
+.relicGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.relic {
+  flex: 1 1 130px;
+  min-width: 130px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--rowBorder);
+  background: var(--rowBg);
+  transition: 0.2s;
+}
+
+.relic.got {
+  border-color: rgba(232, 196, 92, 0.55);
+  background: rgba(232, 196, 92, 0.1);
+  box-shadow: 0 0 18px rgba(232, 196, 92, 0.12);
+}
+
+.relicIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--muted);
+}
+
+.relic.got .relicIcon {
+  background: linear-gradient(180deg, var(--btnTop), var(--btnBottom));
+  color: var(--btnText);
+}
+
+.relicName {
+  font-size: 16px;
+  line-height: 1.1;
+}
+
+.relic.got .relicName {
+  color: var(--gold);
+}
+
+.relicDesc {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.relicCount {
+  margin-left: auto;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  z-index: 30;
+  padding: 20px;
+  animation: fade 0.3s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  width: min(420px, 92vw);
+  text-align: center;
+  animation: pop 0.35s cubic-bezier(0.2, 1.2, 0.3, 1);
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.85) translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.modal h2 {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 30px;
+  margin: 14px 0 6px;
+  color: var(--titleColor);
+}
+
+.modal p {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.input {
+  width: 100%;
+  background: var(--inputBg);
+  border: 1px solid var(--cardBorder);
+  color: var(--ink);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20px;
+  padding: 13px 16px;
+  border-radius: 11px;
+  text-align: center;
+  margin: 16px 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(232, 196, 92, 0.15);
+}
+
+.ribbon {
+  color: var(--gold);
+  font-family: "Cinzel Decorative", serif;
+  letter-spacing: 0.1em;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.big {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 64px;
+  color: var(--gold);
+  line-height: 1;
+  text-shadow: 0 0 24px rgba(232, 196, 92, 0.5);
+  margin: 6px 0;
+}
+
+.toasts {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid rgba(232, 196, 92, 0.5);
+  border-radius: 13px;
+  padding: 12px 16px;
+  min-width: 230px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.4s cubic-bezier(0.2, 1.2, 0.3, 1);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.toast .ti {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, var(--btnTop), var(--btnBottom));
+  color: var(--btnText);
+  flex-shrink: 0;
+}
+
+.toast small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.toast b {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 14px;
+  color: var(--gold);
+}

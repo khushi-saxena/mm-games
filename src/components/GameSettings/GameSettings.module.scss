@@ -1,0 +1,145 @@
+.settings {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto 18px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--cardBorder);
+  background: var(--rowBg);
+}
+
+.settings.locked {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.section + .section {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rowBorder);
+}
+
+.sectionHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-family: "Cinzel Decorative", serif;
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+}
+
+.modeToggle {
+  margin-left: auto;
+  display: flex;
+  gap: 4px;
+}
+
+.modeToggle button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--cardBorder);
+  background: transparent;
+  color: var(--muted);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.modeToggle button:hover:not(:disabled) {
+  background: var(--rowBg);
+  color: var(--ink);
+}
+
+.modeToggle .modeActive {
+  background: rgba(232, 196, 92, 0.15);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.paletteGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.paletteSwatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 6px;
+  border-radius: 10px;
+  border: 1px solid var(--rowBorder);
+  background: var(--rowBg);
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.paletteSwatch:hover:not(:disabled) {
+  border-color: var(--gold);
+}
+
+.paletteActive {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 14px rgba(232, 196, 92, 0.2);
+}
+
+.swatchPreview {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.swatchName {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.paletteActive .swatchName {
+  color: var(--gold);
+}
+
+.difficultyRow {
+  display: flex;
+  gap: 8px;
+}
+
+.diffBtn {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--rowBorder);
+  background: var(--rowBg);
+  color: var(--ink);
+  font-family: "Cinzel Decorative", serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.diffBtn:hover:not(:disabled) {
+  border-color: var(--gold);
+}
+
+.diffActive {
+  background: linear-gradient(180deg, var(--btnTop), var(--btnBottom));
+  color: var(--btnText);
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.diffHint {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+}
