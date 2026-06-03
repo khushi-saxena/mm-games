@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: development
 
     steps:
       - name: Checkout
@@ -29,10 +31,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
-        env:
-          # GitHub runners set NODE_ENV=production, which skips devDependencies (vite).
-          NODE_ENV: development
+        run: npm ci --include=dev
 
       - name: Build
         run: npm run build
