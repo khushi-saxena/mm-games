@@ -40,7 +40,17 @@ Open the app URL, enter your name, and play. Scores are saved automatically when
 - Sequences speed up as you climb.
 - **Relics** unlock from personal milestones (floors reached and total runs).
 
-## Deploying for your team
+## GitHub Pages
+
+The app deploys automatically when changes are pushed to `main` (see [.github/workflows/deploy.yml](.github/workflows/deploy.yml)).
+
+**Live site:** https://khushi-saxena.github.io/mm-games/
+
+If the site is not live yet, open the repo on GitHub → **Settings** → **Pages** → set **Build and deployment** → **Source** to **GitHub Actions**, then re-run the latest workflow or push a commit.
+
+On GitHub Pages there is no shared leaderboard API; scores are stored per browser (local storage).
+
+## Deploying for your team (shared leaderboard)
 
 1. Build the frontend: `npm run build`
 2. Host the `dist` folder and run `node server/index.js` on a machine everyone can reach (or deploy API + static site together).
